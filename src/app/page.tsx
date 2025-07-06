@@ -5,18 +5,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+interface StartupIdea {
+  startupName: string;
+  elevatorPitch: string;
+  mvpFeatures: string[];
+  pricingModel: string;
+}
 
 export default function Home() {
   const [domain, setDomain] = useState("");
   const [trend, setTrend] = useState("");
   const [audience, setAudience] = useState("");
-  const [idea, setIdea] = useState<any>(null);
+  const [idea, setIdea] = useState<StartupIdea | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
@@ -33,9 +35,7 @@ export default function Home() {
 
   return (
     <main className="p-8 max-w-3xl mx-auto space-y-8">
-      <h1 className="text-4xl font-extrabold text-center">
-        Startup Idea Assistant
-      </h1>
+      <h1 className="text-4xl font-extrabold text-center">Startup Idea Assistant</h1>
 
       <form
         onSubmit={(e) => {
@@ -74,11 +74,7 @@ export default function Home() {
           />
         </div>
 
-        <Button
-          type="submit"
-          disabled={loading}
-          className="mt-4 sm:mt-0 sm:col-span-3"
-        >
+        <Button type="submit" disabled={loading} className="mt-4 sm:mt-0 sm:col-span-3">
           {loading ? "Generating…" : "Generate Idea"}
         </Button>
       </form>
@@ -96,9 +92,7 @@ export default function Home() {
                 <li key={i}>{f}</li>
               ))}
             </ul>
-            <p className="text-sm text-muted-foreground">
-              Pricing Model: {idea.pricingModel}
-            </p>
+            <p className="text-sm text-muted-foreground">Pricing Model: {idea.pricingModel}</p>
           </CardContent>
         </Card>
       )}

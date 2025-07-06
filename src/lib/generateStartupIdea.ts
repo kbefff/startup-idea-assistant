@@ -46,8 +46,9 @@ Respond in **JSON format** with the following fields:
     const parsed = JSON.parse(raw);
 
     return { success: true, data: parsed };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("GPT error:", error);
-    return { success: false, error: error.message };
+    const message = error instanceof Error ? error.message : String(error);
+    return { success: false, error: message };
   }
 }
